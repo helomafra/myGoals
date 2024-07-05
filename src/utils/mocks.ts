@@ -3,12 +3,12 @@ import dayjs from "dayjs"
 const transactions = [
   {
     id: "1",
-    created_at: dayjs(new Date()).format("DD/MM/YYYY [at] HH:mm"),
+    created_at: dayjs(new Date()),
     amount: 100,
   },
   {
     id: "2",
-    created_at: dayjs(new Date()).format("DD/MM/YYYY [at] HH:mm"),
+    created_at: dayjs(new Date()),
     amount: -90,
   },
 ]

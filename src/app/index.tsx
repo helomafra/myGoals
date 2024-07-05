@@ -64,7 +64,7 @@ export default function Home() {
       setTransactions(
         response.map((item) => ({
           ...item,
-          date: dayjs(item.created_at).format("DD/MM/YYYY [at] HH:mm"),
+          date: dayjs(item.created_at).format("DD/MM/YY   hh:mm A"),
         }))
       )
     } catch (error) {
