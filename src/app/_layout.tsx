@@ -11,6 +11,8 @@ import {
   OpenSans_600SemiBold,
 } from "@expo-google-fonts/open-sans"
 import { colors } from "@/styles/colors"
+import { SQLiteProvider } from "expo-sqlite/next"
+import { databaseInit } from "@/database/databaseInit"
 
 //prevents the usual behavior of hiding splash screen auto
 SplashScreen.preventAutoHideAsync()
@@ -34,7 +36,9 @@ export default function Layout() {
       style={{ flex: 1, backgroundColor: colors.gray[600] }}
     >
       <StatusBar style="light" />
-      <Slot />
+      <SQLiteProvider databaseName="mygoals.db" onInit={databaseInit}>
+        <Slot />
+      </SQLiteProvider>
     </GestureHandlerRootView>
   )
 }
