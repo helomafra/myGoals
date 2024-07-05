@@ -10,6 +10,7 @@ import { BottomSheet } from "@/components/BottomSheet"
 import { Goals, GoalsProps } from "@/components/Goals"
 import { Transactions, TransactionsProps } from "@/components/Transactions"
 import { mocks } from "@/utils/mocks"
+import { useGoalRepository } from "@/database/useGoalRepository"
 
 export default function Home() {
   const [transactions, setTransactions] = useState<TransactionsProps>([])
@@ -17,6 +18,8 @@ export default function Home() {
 
   const [name, setName] = useState("")
   const [total, setTotal] = useState("")
+
+  const useGoal = useGoalRepository()
 
   const bottomSheetRef = useRef<Bottom>(null)
   const handleBottomSheetOpen = () => bottomSheetRef.current?.expand()
@@ -34,7 +37,7 @@ export default function Home() {
         return Alert.alert("Error", "Invalid value.")
       }
 
-      console.log({ name, total: totalAsNumber })
+      useGoal.create({ name, total: totalAsNumber })
 
       Keyboard.dismiss()
       handleBottomSheetClose()
@@ -50,7 +53,7 @@ export default function Home() {
 
   async function fetchGoals() {
     try {
-      const response = mocks.goals
+      const response = useGoal.list()
       setGoals(response)
     } catch (error) {
       console.log(error)

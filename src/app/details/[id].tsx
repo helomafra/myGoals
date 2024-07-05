@@ -15,6 +15,7 @@ import { TransactionProps } from "@/components/Transaction"
 import { TransactionTypeSelect } from "@/components/TransactionTypeSelect"
 import { mocks } from "@/utils/mocks"
 import { currencyFormat } from "@/utils/currencyFormat"
+import { useGoalRepository } from "@/database/useGoalRepository"
 
 type Details = {
   name: string
@@ -37,10 +38,12 @@ export default function Details() {
   const handleBottomSheetOpen = () => bottomSheetRef.current?.expand()
   const handleBottomSheetClose = () => bottomSheetRef.current?.snapToIndex(0)
 
+  const useGoal = useGoalRepository()
+
   function fetchDetails() {
     try {
       if (goalId) {
-        const goal = mocks.goal
+        const goal = useGoal.showDetails(goalId)
         const transactions = mocks.transactions
 
         if (!goal || !transactions) {
