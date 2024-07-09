@@ -4,7 +4,7 @@ import { colors } from "@/styles/colors"
 
 export function BackButton() {
   return (
-    <Link asChild href="/">
+    <Link asChild href="/" className="mt-4">
       <MaterialIcons name="arrow-back" size={36} color={colors.white} />
     </Link>
   )
