@@ -9,8 +9,8 @@ import { Button } from "@/components/Button"
 import { BottomSheet } from "@/components/BottomSheet"
 import { Goals, GoalsProps } from "@/components/Goals"
 import { Transactions, TransactionsProps } from "@/components/Transactions"
-import { mocks } from "@/utils/mocks"
 import { useGoalRepository } from "@/database/useGoalRepository"
+import { useTransactionRepository } from "@/database/useTransactionRepository"
 
 export default function Home() {
   const [transactions, setTransactions] = useState<TransactionsProps>([])
@@ -20,6 +20,7 @@ export default function Home() {
   const [total, setTotal] = useState("")
 
   const useGoal = useGoalRepository()
+  const useTransaction = useTransactionRepository()
 
   const bottomSheetRef = useRef<Bottom>(null)
   const handleBottomSheetOpen = () => bottomSheetRef.current?.expand()
@@ -45,6 +46,7 @@ export default function Home() {
 
       setName("")
       setTotal("")
+      fetchGoals()
     } catch (error) {
       Alert.alert("Error", "Unable to register.")
       console.log(error)
@@ -62,7 +64,7 @@ export default function Home() {
 
   async function fetchTransactions() {
     try {
-      const response = mocks.transactions
+      const response = useTransaction.findLatest()
 
       setTransactions(
         response.map((item) => ({

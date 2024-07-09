@@ -13,9 +13,9 @@ import { BottomSheet } from "@/components/BottomSheet"
 import { Transactions } from "@/components/Transactions"
 import { TransactionProps } from "@/components/Transaction"
 import { TransactionTypeSelect } from "@/components/TransactionTypeSelect"
-import { mocks } from "@/utils/mocks"
 import { currencyFormat } from "@/utils/currencyFormat"
 import { useGoalRepository } from "@/database/useGoalRepository"
+import { useTransactionRepository } from "@/database/useTransactionRepository"
 
 type Details = {
   name: string
@@ -39,12 +39,13 @@ export default function Details() {
   const handleBottomSheetClose = () => bottomSheetRef.current?.snapToIndex(0)
 
   const useGoal = useGoalRepository()
+  const useTransaction = useTransactionRepository()
 
   function fetchDetails() {
     try {
       if (goalId) {
         const goal = useGoal.showDetails(goalId)
-        const transactions = mocks.transactions
+        const transactions = useTransaction.findByGoal(goalId)
 
         if (!goal || !transactions) {
           return router.back()
@@ -57,7 +58,7 @@ export default function Details() {
           percentage: (goal.current / goal.total) * 100,
           transactions: transactions.map((item) => ({
             ...item,
-            date: dayjs(item.created_at).format("DD/MM/YYYY [às] HH:mm"),
+            date: dayjs(item.created_at).format("DD/MM/YY   hh:mm A"),
           })),
         })
 
@@ -80,7 +81,7 @@ export default function Details() {
         amountAsNumber = amountAsNumber * -1
       }
 
-      console.log({ goalId, amount: amountAsNumber })
+      useTransaction.create({ amount: amountAsNumber, goalId })
 
       Alert.alert("Success", "Transaction recorded!")
 
@@ -89,6 +90,8 @@ export default function Details() {
 
       setAmount("")
       setType("up")
+
+      fetchDetails()
     } catch (error) {
       console.log(error)
     }
