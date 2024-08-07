@@ -14,7 +14,7 @@ type Props = PressableProps & {
 export function Transaction({ transaction, ...rest }: Props) {
   return (
     <Pressable
-      className="w-full h-16 bg-gray-500 rounded-sm border border-gray-400 p-4 flex-row items-center justify-between"
+      className="w-full h-16 bg-gray-500 rounded-lg border border-gray-400 p-4 flex-row items-center justify-between"
       {...rest}
     >
       <Text

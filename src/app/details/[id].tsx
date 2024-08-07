@@ -116,8 +116,9 @@ export default function Details() {
         style: "cancel",
       },
       {
-        text: "Ok",
+        text: "Delete",
         onPress: deleteGoal,
+        style: "destructive",
       },
     ])
   }

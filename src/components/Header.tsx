@@ -5,18 +5,25 @@ import { Link } from "expo-router"
 
 type HeaderProps = {
   onDelete: () => void
+  // onUpdate: () => void
 }
 
 export function Header({ onDelete }: HeaderProps) {
   return (
-    <View className="flex-row justify-between items-center mt-4">
-      <Link asChild href="/" className="mt-4">
+    <View className="flex-row justify-between mt-8">
+      <Link asChild href="/">
         <MaterialIcons name="arrow-back" size={24} color={colors.white} />
       </Link>
 
-      <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>
-        <MaterialIcons name="delete" size={24} color={colors.red[500]} />
-      </TouchableOpacity>
+      <View className="flex-row items-center gap-6">
+        <TouchableOpacity activeOpacity={0.7}>
+          <MaterialIcons name="edit" size={24} color={colors.white} />
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>
+          <MaterialIcons name="delete" size={24} color={colors.white} />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
