@@ -98,6 +98,17 @@ export default function Details() {
     }
   }
 
+  async function handleDeleteGoal() {
+    try {
+      useGoal.deleteGoal(goalId)
+      Alert.alert("Success", "Goal deleted successfully!")
+      router.back()
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Error", "Could not delete the goal.")
+    }
+  }
+
   useEffect(() => {
     fetchDetails()
   }, [])
@@ -108,7 +119,7 @@ export default function Details() {
 
   return (
     <View className="flex-1 p-8 pt-12">
-      <Header />
+      <Header onDelete={handleDeleteGoal} />
 
       <Title title={goal.name} subtitle={`${goal.current} of ${goal.total}`} />
 

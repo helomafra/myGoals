@@ -61,9 +61,24 @@ export function useGoalRepository() {
     }
   }
 
+  function deleteGoal(id: number) {
+    try {
+      const statement = database.prepareSync(`
+        DELETE FROM goals WHERE id = $id
+        `)
+
+      const result = statement.executeSync({ $id: id })
+
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
   return {
     create,
     list,
     showDetails,
+    deleteGoal,
   }
 }
