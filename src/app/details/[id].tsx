@@ -98,7 +98,7 @@ export default function Details() {
     }
   }
 
-  async function handleDeleteGoal() {
+  async function deleteGoal() {
     try {
       useGoal.deleteGoal(goalId)
       Alert.alert("Success", "Goal deleted successfully!")
@@ -107,6 +107,19 @@ export default function Details() {
       console.log(error)
       Alert.alert("Error", "Could not delete the goal.")
     }
+  }
+
+  function handleDeleteConfirmation() {
+    Alert.alert("Delete Goal", "Do you really wish to delete this goal?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Ok",
+        onPress: deleteGoal,
+      },
+    ])
   }
 
   useEffect(() => {
@@ -119,7 +132,7 @@ export default function Details() {
 
   return (
     <View className="flex-1 p-8 pt-12">
-      <Header onDelete={handleDeleteGoal} />
+      <Header onDelete={handleDeleteConfirmation} />
 
       <Title title={goal.name} subtitle={`${goal.current} of ${goal.total}`} />
 
