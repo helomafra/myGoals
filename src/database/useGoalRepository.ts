@@ -61,6 +61,8 @@ export function useGoalRepository() {
     }
   }
 
+  // function updateGoal(id: number) {}
+
   function deleteGoal(id: number) {
     try {
       const statement = database.prepareSync(`

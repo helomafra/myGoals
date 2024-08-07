@@ -16,9 +16,10 @@ export function Header({ onDelete }: HeaderProps) {
       </Link>
 
       <View className="flex-row items-center gap-6">
-        <TouchableOpacity activeOpacity={0.7}>
+        {/* future feat */}
+        {/* <TouchableOpacity activeOpacity={0.7}>
           <MaterialIcons name="edit" size={24} color={colors.white} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>
           <MaterialIcons name="delete" size={24} color={colors.white} />
