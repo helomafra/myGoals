@@ -14,7 +14,8 @@ export async function databaseInit(database: SQLiteDatabase) {
         id INTEGER PRIMARY KEY NOT NULL, 
         goal_id INTEGER,
         amount REAL NOT NULL,
-        created_at DEFAULT CURRENT_TIMESTAMP
+        created_at DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (goal_id) REFERENCES goals(id) ON DELETE CASCADE 
       );
     `)
 }
