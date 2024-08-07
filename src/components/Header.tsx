@@ -1,15 +1,16 @@
-import { View, Text } from "react-native"
+import { View } from "react-native"
+import MaterialIcons from "@expo/vector-icons/MaterialIcons"
+import { colors } from "@/styles/colors"
+import { Link } from "expo-router"
 
-type Props = {
-  title: string
-  subtitle: string
-}
-
-export function Header({ title, subtitle }: Props) {
+export function Header() {
   return (
-    <View className="mt-14 mb-9">
-      <Text className="text-white font-bold text-4xl">{title}</Text>
-      <Text className="text-white font-regular text-lg">{subtitle}</Text>
+    <View className="flex-row justify-between items-center mt-4">
+      <Link asChild href="/" className="mt-4">
+        <MaterialIcons name="arrow-back" size={24} color={colors.white} />
+      </Link>
+
+      <MaterialIcons name="delete" size={24} color={colors.red[500]} />
     </View>
   )
 }

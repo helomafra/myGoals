@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from "expo-router"
 import Bottom from "@gorhom/bottom-sheet"
 import dayjs from "dayjs"
 import { Input } from "@/components/Input"
-import { Header } from "@/components/Header"
+import { Title } from "@/components/Title"
 import { Button } from "@/components/Button"
 import { Loading } from "@/components/Loading"
 import { Progress } from "@/components/Progress"
@@ -16,6 +16,7 @@ import { TransactionTypeSelect } from "@/components/TransactionTypeSelect"
 import { currencyFormat } from "@/utils/currencyFormat"
 import { useGoalRepository } from "@/database/useGoalRepository"
 import { useTransactionRepository } from "@/database/useTransactionRepository"
+import { Header } from "@/components/Header"
 
 type Details = {
   name: string
@@ -107,9 +108,9 @@ export default function Details() {
 
   return (
     <View className="flex-1 p-8 pt-12">
-      <BackButton />
+      <Header />
 
-      <Header title={goal.name} subtitle={`${goal.current} of ${goal.total}`} />
+      <Title title={goal.name} subtitle={`${goal.current} of ${goal.total}`} />
 
       <Progress percentage={goal.percentage} />
 

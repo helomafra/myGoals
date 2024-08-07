@@ -4,7 +4,7 @@ import Bottom from "@gorhom/bottom-sheet"
 import { router } from "expo-router"
 import dayjs from "dayjs"
 import { Input } from "@/components/Input"
-import { Header } from "@/components/Header"
+import { Title } from "@/components/Title"
 import { Button } from "@/components/Button"
 import { BottomSheet } from "@/components/BottomSheet"
 import { Goals, GoalsProps } from "@/components/Goals"
@@ -83,8 +83,8 @@ export default function Home() {
   }, [])
 
   return (
-    <View className="flex-1 p-8">
-      <Header
+    <View className="flex-1 p-8 pt-12">
+      <Title
         title="myGoals"
         subtitle="Save today to reap the rewards tomorrow."
       />

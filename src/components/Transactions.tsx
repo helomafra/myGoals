@@ -17,7 +17,7 @@ export function Transactions({ transactions }: Props) {
       <FlatList
         data={transactions}
         renderItem={({ item }) => <Transaction transaction={item} />}
-        contentContainerClassName="py-6 gap-4"
+        contentContainerClassName="gap-4 mb-2"
         showsVerticalScrollIndicator={false}
         //ListEmptyComponent works as placeholder
         ListEmptyComponent={() => (
