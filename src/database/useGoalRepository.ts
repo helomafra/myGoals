@@ -61,7 +61,7 @@ export function useGoalRepository() {
     }
   }
 
-  function updateGoalValue(id: number, total: number) {
+  function updateGoalTotal(id: number, total: number) {
     try {
       const statement = database.prepareSync(`
         UPDATE goals SET total = $total WHERE id = $id
@@ -94,6 +94,6 @@ export function useGoalRepository() {
     list,
     showDetails,
     deleteGoal,
-    updateGoalValue,
+    updateGoalTotal,
   }
 }
