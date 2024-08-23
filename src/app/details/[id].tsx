@@ -31,13 +31,21 @@ export default function Details() {
   const [isLoading, setIsLoading] = useState(true)
   const [type, setType] = useState<"up" | "down">("up")
   const [goal, setGoal] = useState<Details>({} as Details)
+  const [total, setTotal] = useState("")
 
   const routeParams = useLocalSearchParams()
   const goalId = Number(routeParams.id)
 
-  const bottomSheetRef = useRef<Bottom>(null)
-  const handleBottomSheetOpen = () => bottomSheetRef.current?.expand()
-  const handleBottomSheetClose = () => bottomSheetRef.current?.snapToIndex(0)
+  const transactionBottomSheetRef = useRef<Bottom>(null)
+  const handleTransactionBottomSheetOpen = () =>
+    transactionBottomSheetRef.current?.expand()
+  const handleTransactionBottomSheetClose = () =>
+    transactionBottomSheetRef.current?.snapToIndex(0)
+
+  const goalBottomSheetRef = useRef<Bottom>(null)
+  const handleGoalBottomSheetOpen = () => goalBottomSheetRef.current?.expand()
+  const handleGoalBottomSheetClose = () =>
+    goalBottomSheetRef.current?.snapToIndex(0)
 
   const useGoal = useGoalRepository()
   const useTransaction = useTransactionRepository()
@@ -86,7 +94,7 @@ export default function Details() {
 
       Alert.alert("Success", "Transaction recorded!")
 
-      handleBottomSheetClose()
+      handleTransactionBottomSheetClose()
       Keyboard.dismiss()
 
       setAmount("")
@@ -106,6 +114,23 @@ export default function Details() {
     } catch (error) {
       console.log(error)
       Alert.alert("Error", "Could not delete the goal.")
+    }
+  }
+
+  async function editGoal() {
+    try {
+      const totalAsNumber = Number(total.toString().replace(",", "."))
+
+      if (isNaN(totalAsNumber) || !total) {
+        return Alert.alert("Error", "Invalid value.")
+      }
+
+      useGoal.updateGoalTotal(goalId, totalAsNumber)
+      Alert.alert("Success", "Goal updated successfully!")
+      router.back()
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Error", "Could not update the goal.")
     }
   }
 
@@ -133,7 +158,10 @@ export default function Details() {
 
   return (
     <View className="flex-1 p-8 pt-12">
-      <Header onDelete={handleDeleteConfirmation} />
+      <Header
+        onDelete={handleDeleteConfirmation}
+        onUpdate={handleGoalBottomSheetOpen}
+      />
 
       <Title title={goal.name} subtitle={`${goal.current} of ${goal.total}`} />
 
@@ -141,13 +169,16 @@ export default function Details() {
 
       <Transactions transactions={goal.transactions} />
 
-      <Button title="New transaction" onPress={handleBottomSheetOpen} />
+      <Button
+        title="New transaction"
+        onPress={handleTransactionBottomSheetOpen}
+      />
 
       <BottomSheet
-        ref={bottomSheetRef}
+        ref={transactionBottomSheetRef}
         title="New transaction"
         snapPoints={[0.01, 284]}
-        onClose={handleBottomSheetClose}
+        onClose={handleTransactionBottomSheetClose}
       >
         <TransactionTypeSelect onChange={setType} selected={type} />
 
@@ -159,6 +190,24 @@ export default function Details() {
         />
 
         <Button title="Save" onPress={handleNewTransaction} />
+      </BottomSheet>
+
+      <BottomSheet
+        ref={goalBottomSheetRef}
+        title="Update goal"
+        snapPoints={[0.01, 284]}
+        onClose={handleGoalBottomSheetClose}
+      >
+        <Input placeholder="Goal" value={goal.name} editable={false} />
+
+        <Input
+          placeholder="Value to save"
+          keyboardType="numeric"
+          onChangeText={setTotal}
+          value={total || goal.total}
+        />
+
+        <Button title="Update" onPress={editGoal} />
       </BottomSheet>
     </View>
   )
