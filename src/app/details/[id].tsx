@@ -127,7 +127,8 @@ export default function Details() {
 
       useGoal.updateGoalTotal(goalId, totalAsNumber)
       Alert.alert("Success", "Goal updated successfully!")
-      router.back()
+      handleGoalBottomSheetClose()
+      fetchDetails()
     } catch (error) {
       console.log(error)
       Alert.alert("Error", "Could not update the goal.")

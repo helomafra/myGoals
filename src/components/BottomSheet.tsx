@@ -1,6 +1,6 @@
 import React, { ReactNode, forwardRef } from "react"
 import { Text, View } from "react-native"
-import Bottom from "@gorhom/bottom-sheet"
+import Bottom, { BottomSheetBackdrop } from "@gorhom/bottom-sheet"
 import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 import { colors } from "@/styles/colors"
 
@@ -18,12 +18,21 @@ export const BottomSheet = forwardRef<Bottom, Props>(
         ref={ref}
         index={0}
         snapPoints={snapPoints}
+        enablePanDownToClose
         backgroundStyle={{
           borderWidth: 1,
           borderColor: colors.gray[400],
           backgroundColor: colors.gray[700],
         }}
         handleComponent={() => null}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop
+            {...props}
+            disappearsOnIndex={0}
+            appearsOnIndex={1}
+            opacity={0.5}
+          />
+        )}
       >
         <View className="p-8 gap-4">
           <View className="flex-row">
