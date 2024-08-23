@@ -59,7 +59,7 @@ export default function Details() {
         if (!goal || !transactions) {
           return router.back()
         }
-
+        setTotal(String(goal.total))
         setGoal({
           name: goal.name,
           current: currencyFormat(goal.current),
@@ -121,7 +121,7 @@ export default function Details() {
     try {
       const totalAsNumber = Number(total.toString().replace(",", "."))
 
-      if (isNaN(totalAsNumber) || !total) {
+      if (isNaN(totalAsNumber)) {
         return Alert.alert("Error", "Invalid value.")
       }
 
@@ -201,10 +201,10 @@ export default function Details() {
         <Input placeholder="Goal" value={goal.name} editable={false} />
 
         <Input
-          placeholder="Value to save"
           keyboardType="numeric"
           onChangeText={setTotal}
-          value={total || goal.total}
+          value={total}
+          placeholder="Enter the new goal total"
         />
 
         <Button title="Update" onPress={editGoal} />
