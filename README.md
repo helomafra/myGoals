@@ -20,7 +20,7 @@ A simple and intuitive React Native application for tracking goals. The app allo
 
 ##
 
-<img width="100%" alt="App Homepage" title="App" src=".github/app.png" />
+<img width="100%" alt="App Homepage" title="App" src=".github/main.png" />
 <img width="100%" alt="App Homepage" title="App" src=".github/screens.png" />
 
 ## Usage
